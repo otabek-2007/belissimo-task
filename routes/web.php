@@ -8,3 +8,5 @@ Route::get('/', function () {
 });
 
 Route::get('/index', [ProductController::class, 'index']);
+Route::get('/show/product', [ProductController::class, 'showProduct']); // Route to fetch product details
+Route::post('/add/product', [ProductController::class, 'addPackage']); 
