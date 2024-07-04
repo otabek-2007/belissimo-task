@@ -1,11 +1,10 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/index', function () {
-    return view('layout.header');
-});
+Route::get('/index', [ProductController::class, 'index']);
