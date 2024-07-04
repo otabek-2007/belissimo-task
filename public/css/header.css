@@ -1,0 +1,109 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Averta CY, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif !important;
+}
+
+.header-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem 0.5rem 0px 0.5rem;
+}
+
+.header-cards {
+    width: 100%;
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: repeat(3, calc(33.33333% - 0.4rem));
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0.25rem 1rem;
+    background: linear-gradient(160deg, #a0e6ff, #00a3ff);
+    border-radius: 14px;
+    color: white;
+}
+
+.card span {
+    font-size: 35px;
+}
+
+.menu-cards {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 10px;
+    padding: 0.5rem 0px;
+}
+
+.menu-card {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #ffcd73;
+    border-radius: 14px;
+    padding: 0.25rem 1rem;
+}
+
+.menu-card-package {
+    width: 50%;
+    background: linear-gradient(-45deg, #d1d8d3, #ababab);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* background: #ffcd73; */
+    border-radius: 14px;
+    padding: 0.25rem 1rem;
+}
+
+.menu-card-package span {
+    font-size: 45px;
+}
+
+.menu-card span {
+    font-size: 45px;
+}
+
+.new span {
+    font-size: 25px;
+}
+
+.status {
+    color: hsla(0, 0%, 100%, .8);
+    ;
+    line-height: 1;
+    font-size: 16px;
+}
+
+.new {
+    font-size: 25px;
+    font-weight: bolder;
+    line-height: 1;
+    text-align: right;
+    color: #fff;
+}
+
+@media screen and (max-width:500px) {
+    .menu-cards {
+        flex-direction: column;
+    }
+
+    .menu-card {
+        width: 100%;
+    }
+
+    .menu-card-package {
+        width: 100%;
+    }
+}
