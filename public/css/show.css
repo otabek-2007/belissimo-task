@@ -257,23 +257,52 @@ body.modal-open {
 .modal {
     display: none;
     position: fixed;
-    z-index: 1000;
     left: 0;
+    right: 0;
     bottom: -100%;
     width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
+    height: auto;
+    background-color: white;
     transition: bottom 0.5s;
+    z-index: 1000;
 }
+
+.modal-open .modal {
+    display: block;
+}
+
+.modal-content {
+    position: relative;
+    padding: 20px;
+}
+
+.drag-line {
+    width: 40px;
+    height: 4px;
+    background-color: gray;
+    margin: 20px auto;
+    cursor: grab;
+    border-radius: 2px;
+}
+
+.ProductMore_imageContainer img {
+    width: 100%;
+}
+
+.ProductMore_details,
+.ProductMore_actions {
+    text-align: left;
+    margin-top: 10px;
+}
+
 
 .modal-content {
     background-color: #fefefe;
     margin: auto;
-    padding: 20px;
-    border: 1px solid #888;
+    padding: 20px 10px;
+    /* border: 1px solid #888; */
     border-radius: 28px 28px 0px 0px;
-    width: 60%;
+    width: 500px;
     position: absolute;
     bottom: 0;
     left: 50%;

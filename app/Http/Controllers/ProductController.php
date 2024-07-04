@@ -12,7 +12,6 @@ class ProductController extends Controller
     {
         $products = (new ProductService)->showProducts($request);
 
-        // Ensure products is a collection or array
         if ($request->ajax()) {
             return view('products.filtered-products', compact('products'))->render();
         }
@@ -28,14 +27,14 @@ class ProductController extends Controller
             'name' => $product->name_uz,
             'description' => $product->description_uz,
             'price' => $product->price_small ?: $product->price_medium ?: $product->price_big,
-            'image' => '/image/image.png', // Replace with actual product image path if available
+            'image' => '/image/image.png',
         ]);
     }
 
     public function addPackage(Request $request)
     {
-        // Add the product to the cart logic goes here
-        // For now, just return a success message for simplicity
-        return response()->json(['message' => 'Product added successfully']);
+        $package = (new ProductService)->addPackage($request);
+        return $package;
+        // return response()->json(['message' => 'Product added successfully']);
     }
 }

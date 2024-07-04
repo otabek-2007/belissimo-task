@@ -49,6 +49,7 @@
 {{-- Modal Structure --}}
 <div id="product-modal" class="modal">
     <div class="modal-content">
+        <div class="drag-line"></div>
         <div id="pizza_more">
             <div class="ProductMore_imageContainer">
                 <img src="" alt="" class="ProductMore_image" id="modal-product-image">
@@ -66,10 +67,13 @@
         </div>
     </div>
 </div>
+
 <script>
     $(document).ready(function() {
         var modal = $('#product-modal');
         var closeBtn = $('.close');
+        var isDragging = false;
+        var startPosition = 0;
 
         $('.item-add-btn').click(function() {
             var productId = $(this).data('id');
@@ -88,7 +92,6 @@
                     $('#qoshish-btn').data('id', productId);
 
                     $('body').addClass('modal-open');
-                    modal.css('display', 'block');
                     modal.css('bottom', '0');
                 },
                 error: function(xhr, status, error) {
@@ -118,11 +121,10 @@
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {
-                    console.log('Product added:', response.message);
+                    console.log(response);
                     closeModal();
                 },
                 error: function(xhr, status, error) {
-                    console.error('Error adding product:', error);
                     closeModal();
                 }
             });
@@ -131,9 +133,42 @@
         function closeModal() {
             $('body').removeClass('modal-open');
             modal.css('bottom', '-100%');
-            setTimeout(function() {
-                modal.css('display', 'none');
-            }, 500);
         }
+
+        $(window).on('click', function(event) {
+            if ($(event.target).closest('.modal-content').length === 0 && $(event.target).closest(
+                    '.item-add-btn').length === 0) {
+                closeModal();
+            }
+        });
+
+        $('.drag-line').on('mousedown touchstart', function(e) {
+            isDragging = true;
+            startPosition = e.pageY || e.originalEvent.touches[0].pageY;
+        });
+
+        $(window).on('mousemove touchmove', function(e) {
+            if (!isDragging) return;
+            var currentPosition = e.pageY || e.originalEvent.touches[0].pageY;
+            var difference = currentPosition - startPosition;
+
+            if (difference > 0) {
+                modal.css('bottom', -difference + 'px');
+            }
+        });
+
+        $(window).on('mouseup touchend', function(e) {
+            if (!isDragging) return;
+            isDragging = false;
+
+            var endPosition = e.pageY || e.originalEvent.changedTouches[0].pageY;
+            var difference = endPosition - startPosition;
+
+            if (difference > 50) {
+                closeModal();
+            } else {
+                modal.css('bottom', '0');
+            }
+        });
     });
 </script>
