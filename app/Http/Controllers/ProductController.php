@@ -35,6 +35,6 @@ class ProductController extends Controller
     {
         $package = (new ProductService)->addPackage($request);
         return $package;
-        // return response()->json(['message' => 'Product added successfully']);
     }
+
 }

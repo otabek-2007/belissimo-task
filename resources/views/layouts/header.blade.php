@@ -65,6 +65,14 @@
                     }
                 });
             });
+
+            $('.menu-card').click(function() {
+                window.location.href = '/aksiyalar';
+            });
+
+            $('.menu-card-package').click(function() {
+                window.location.href = '/package/page';
+            });
         });
     </script>
 </body>
