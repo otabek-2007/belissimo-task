@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateBonusesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up()
     {
         Schema::create('bonuses', function (Blueprint $table) {
@@ -17,14 +14,10 @@ class CreateBonusesTable extends Migration
             $table->string('name_ru');
             $table->text('description_uz');
             $table->text('description_ru');
-            $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down()
     {
         Schema::dropIfExists('bonuses');

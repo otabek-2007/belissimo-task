@@ -34,13 +34,5 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function bonuses()
-    {
-        return $this->hasMany(Bonus::class);
-    }
-    public function bonusItems()
-    {
-        return $this->hasMany(BonusItem::class, 'position_id');
-    }
 }
 

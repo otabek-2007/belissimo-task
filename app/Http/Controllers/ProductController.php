@@ -33,9 +33,11 @@ class ProductController extends Controller
 
     public function showStockProduct($id)
     {
-        $bonus = $this->productService->stockProduct($id); // Assuming stockProduct method fetches bonus data
+        $bonus = $this->productService->stockProduct($id);
         return view('products.stock-show', compact('bonus'));
     }
+
+
     public function showProduct(Request $request)
     {
         $product = $this->productService->showProduct($request);

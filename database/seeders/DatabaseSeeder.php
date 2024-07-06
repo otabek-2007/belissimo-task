@@ -11,38 +11,29 @@ class DatabaseSeeder extends Seeder
 {
     public function run()
     {
-        // Disable foreign key checks
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
-        // Truncate tables in the correct order
         DB::table('bonus_items')->truncate();
         DB::table('bonuses')->truncate();
         DB::table('products')->truncate();
         DB::table('categories')->truncate();
 
-        // Re-enable foreign key checks
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
-        // Path to the JSON file
         $jsonPath = storage_path('app/public/data.json');
 
-        // Check if the JSON file exists
         if (!File::exists($jsonPath)) {
             throw new \Exception("File does not exist at path: {$jsonPath}");
         }
 
-        // Read JSON file
         $json = File::get($jsonPath);
 
-        // Decode JSON data
         $data = json_decode($json, true);
 
-        // Check if data was decoded correctly
         if (is_null($data) || !isset($data['result'])) {
             throw new \Exception('Invalid JSON structure');
         }
 
-        // Seed categories and products from JSON data
         foreach ($data['result'] as $categoryData) {
             $category = Category::updateOrCreate(
                 ['id' => $categoryData['id']],
@@ -86,7 +77,6 @@ class DatabaseSeeder extends Seeder
             }
         }
 
-        // Call the BonusSeeder after the products are seeded
         $this->call(BonusSeeder::class);
     }
 }

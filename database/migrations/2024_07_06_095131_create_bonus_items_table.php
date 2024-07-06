@@ -6,22 +6,18 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateBonusItemsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up()
     {
         Schema::create('bonus_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('bonus_id')->constrained('bonuses')->onDelete('cascade');
-            $table->foreignId('position_id')->constrained('products')->onDelete('cascade');
+            $table->unsignedBigInteger('bonus_id');
+            $table->foreign('bonus_id')->references('id')->on('bonuses')->onDelete('cascade');
+            $table->string('position_id');
+            $table->string('name_ru');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down()
     {
         Schema::dropIfExists('bonus_items');

@@ -85,19 +85,33 @@ body {
     flex-direction: column;
     box-shadow: 5px 2px 30px hsla(257, 8%, 83%, .25);
 }
-.card-title{
+
+.card-title {
     display: flex;
     flex-direction: column;
     gap: 3px;
 }
-.card-title span{
+
+.card-title span {
     margin-bottom: .25rem;
 }
-.card-title p{
+
+.card-title p {
     font-weight: 700;
     font-size: 18px;
     margin-bottom: .25rem;
 }
+
+.left-back {
+    position: absolute;
+    top: 0.5rem;
+    padding: 1rem;
+    left: 0.5rem;
+    font-size: 24px;
+    z-index: 111;
+    cursor: pointer;
+}
+
 .bonus-card {
     padding: 0.75rem 0.5rem;
     display: flex;

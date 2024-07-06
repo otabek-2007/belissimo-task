@@ -14,16 +14,10 @@ class Bonus extends Model
         'name_ru',
         'description_uz',
         'description_ru',
-        'product_id'
     ];
-
     public function bonusItems()
     {
-        return $this->hasMany(BonusItem::class);
+        return $this->hasMany(BonusItem::class, 'bonus_id', 'id');
     }
 
-    public function product()
-    {
-        return $this->belongsTo(Product::class);
-    }
 }

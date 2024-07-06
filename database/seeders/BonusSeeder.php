@@ -9,28 +9,31 @@ use App\Models\BonusItem;
 
 class BonusSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run()
     {
-        $products = Product::all();
+        $products = Product::all(['id', 'position', 'name_ru']);
 
-        // Assuming we are creating a bonus for each product
-        foreach ($products as $product) {
-            // Create a bonus
+        $positions = $products->keyBy('position')->toArray();
+
+        for ($i = 0; $i <= 13; $i++) {
             $bonus = Bonus::create([
-                'name_uz' => $product->name_uz,
-                'name_ru' => $product->name_ru,
-                'description_uz' => $product->description_uz,
-                'description_ru' => $product->description_ru,
-                'product_id' => $product->id,
+                'name_uz' => 'Katta bazm ' . ($i + 1),
+                'name_ru' => 'Большая вечеринка ' . ($i + 1),
+                'description_uz' => "4 ta 30 sm’lik pitsa va 2 ta Coca-Cola 1,5 L — katta davra uchun mo’ljallangan set.",
+                'description_ru' => "4 пиццы по 30 см и 2 кока-колы 1,5 л - набор для большого круга.",
             ]);
 
-            for ($i = 0; $i < 5; $i++) {
+            $shuffledPositions = array_keys($positions);
+            shuffle($shuffledPositions);
+            $randomPositions = array_slice($shuffledPositions, 0, 5);
+
+            foreach ($randomPositions as $position) {
+                $product = $positions[$position];
+
                 BonusItem::create([
                     'bonus_id' => $bonus->id,
-                    'position_id' => $product->id,
+                    'name_ru' => $product['name_ru'],
+                    'position_id' => $product['id'],
                 ]);
             }
         }

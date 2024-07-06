@@ -21,7 +21,7 @@
             url: '/product/bonuses/' + productId,
             method: 'GET',
             success: function(response) {
-                window.location.href = '/product/bonuses/' + productId; 
+                window.location.href = '/product/bonuses/' + productId;
             },
             error: function(xhr) {
                 console.error('An error occurred:', xhr.responseText);

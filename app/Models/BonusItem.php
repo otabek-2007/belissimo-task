@@ -10,16 +10,13 @@ class BonusItem extends Model
 
     protected $fillable = [
         'bonus_id',
+        'name_ru',
         'position_id'
     ];
 
     public function bonus()
     {
-        return $this->belongsTo(Bonus::class);
+        return $this->belongsTo(Bonus::class, 'bonus_id');
     }
 
-    public function product()
-    {
-        return $this->belongsTo(Product::class, 'position_id');
-    }
 }

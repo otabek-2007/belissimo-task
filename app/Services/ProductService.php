@@ -11,24 +11,35 @@ class ProductService
 
     public function showProducts($request)
     {
+        if ($request->has('in_stock')) {
+            $bonuses = Bonus::with(['bonusItems'])->get();
+            return $bonuses;
+        }
+
         $products = Product::query();
         $products->with(['category']);
-
         if ($request->has('category_id')) {
             $products->where('category_id', $request->category_id);
-        } else if ($request->has('in_stock')) {
-            $products->where('in_stock', true);
         } else {
             $products->where('category_id', 1);
         }
 
         return $products->get();
     }
+
+    // ProductService.php
     public function stockProduct($id)
     {
-        $bonus = Bonus::where('product_id', $id)->with(['bonusItems', 'product'])->first();
+        $bonus = Bonus::with('bonusItems')->find($id);
+
+        if (!$bonus) {
+            abort(404);
+        }
+
         return $bonus;
     }
+
+
     public function showProduct($request)
     {
         $product = Product::findOrFail($request->product_id);
