@@ -30,7 +30,9 @@
                     <div class="item">
                         <div class="package-item">
                             <div class="package-item-img">
-                                <img src="/image/{{ $item->image }}" alt="">
+                                <img src="{{ $item->image ? '/image/' . $item->image : '/image/default.jpg' }}"
+                                    alt="">
+
                                 <div class="package-text">
                                     <p>{{ $item->name_uz }}</p>
                                     <span>{{ $item->description }}</span>
@@ -79,6 +81,7 @@
                 <div class="pay-box">
                     <div class="pay-btn">
                         <p>Buyurtma qilish</p>
+                        <span class="total-amount"></span>
                     </div>
                 </div>
             </div>
@@ -166,7 +169,7 @@
                 $('.total-price').each(function() {
                     totalAmount += parseFloat($(this).text());
                 });
-                $('.sum-all span').text(totalAmount);
+                $('.yetkazib-berish .total-amount, .footer .total-amount').text(totalAmount + ' so’m');
             }
 
             updateTotalAmount();

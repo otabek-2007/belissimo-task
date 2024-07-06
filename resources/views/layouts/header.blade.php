@@ -45,6 +45,7 @@
         $(document).ready(function() {
             $('.card').click(function() {
                 var categoryId = $(this).data('id');
+                $('.menu-card').removeClass('active');
 
                 $('.card').removeClass('active');
                 $(this).addClass('active');

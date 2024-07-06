@@ -31,13 +31,11 @@ class ProductController extends Controller
     }
 
 
-    public function stockProduct(Request $request)
+    public function showStockProduct($id)
     {
-        $stock = $this->productService->stockProduct($request);
-
-        return view('products.stock-show', compact('stock'));
+        $bonus = $this->productService->stockProduct($id); // Assuming stockProduct method fetches bonus data
+        return view('products.stock-show', compact('bonus'));
     }
-
     public function showProduct(Request $request)
     {
         $product = $this->productService->showProduct($request);

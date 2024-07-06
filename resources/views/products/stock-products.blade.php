@@ -12,26 +12,20 @@
     @endforeach
 </div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 <script>
-    $(document).ready(function() {
-        $('.stock-item').click(function() {
-            var productId = $(this).data('id');
-            $.ajax({
-                url: '/stock-product',
-                method: 'GET',
-                data: {
-                    product_id: productId
-                },
-                success: function(response) {
-                    var newUrl = '/stock-product';
-                    window.history.pushState({
-                        path: newUrl
-                    }, '', newUrl);
-                },
-                error: function(xhr, status, error) {
-                    console.error(error);
-                }
-            });
+    $(document).on('click', '.stock-item', function() {
+        var productId = $(this).data('id');
+        $.ajax({
+            url: '/product/bonuses/' + productId,
+            method: 'GET',
+            success: function(response) {
+                window.location.href = '/product/bonuses/' + productId; 
+            },
+            error: function(xhr) {
+                console.error('An error occurred:', xhr.responseText);
+            }
         });
     });
 </script>

@@ -3,7 +3,8 @@
         <div class="show-content">
             <div class="show-item-pizza">
                 <div class="show-item-img">
-                    <img src="/image/image.png" alt="" class="item-img">
+                    <img src="{{ $product->image ? '/image/' . $product->image : '/image/default.jpg' }}"
+                    alt="">
                 </div>
                 <div class="show-item-text">
                     <p class="show-item-title">{{ $product->name_uz }}</p>
@@ -24,7 +25,8 @@
         @if ($product->category_id != 1)
             <div class="show-card">
                 <div class="card-img">
-                    <img src="./image/image.png" alt="">
+                    <img src="{{ $product->image ? '/image/' . $product->image : '/image/default.jpg' }}" alt="">
+
                 </div>
                 <p class="card-title">{{ $product->name_uz }}</p>
                 <p class="card-price"><span class="price-item">

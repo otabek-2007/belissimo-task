@@ -1,6 +1,8 @@
 <?php
 namespace App\Services;
 
+use App\Models\Bonus;
+use App\Models\BonusItem;
 use App\Models\Package;
 use App\Models\Product;
 
@@ -22,9 +24,10 @@ class ProductService
 
         return $products->get();
     }
-    public function stockProduct($request)
+    public function stockProduct($id)
     {
-        return Product::find($request->product_id)->with(['category']);
+        $bonus = Bonus::where('product_id', $id)->with(['bonusItems', 'product'])->first();
+        return $bonus;
     }
     public function showProduct($request)
     {

@@ -16,7 +16,7 @@ class PackageService
         return DB::transaction(function () use ($request) {
             $product = Product::findOrFail($request->product_id);
 
-            $price = $product->price_small ?? $product->price_medium ?? $product->price_big;
+            $price = $product->price_small == 0 ? ($product->price_medium == 0 ? $product->price_big : $product->price_medium) : $product->price_small;
 
             $quantity = $request->quantity ?? 1;
             $package = Package::where('product_id', $product->id)->first();
