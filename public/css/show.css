@@ -27,6 +27,7 @@
     margin: 0;
 }
 
+
 li a {
     text-decoration: none;
     cursor: pointer;
@@ -372,3 +373,4 @@ body.modal-open {
     padding: .75rem 1rem;
     width: 70%;
 }
+

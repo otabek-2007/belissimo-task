@@ -1,0 +1,44 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.stock-container {
+    width: 100%;
+    padding: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.stock-item {
+    position: relative;
+    width: 50%;
+    /* Adjust width as needed */
+    padding: 0.5rem;
+    /* Add padding for spacing between items */
+}
+
+.stock-item img {
+    width: 100%;
+    /* Ensure the image takes full width of its container */
+    display: block;
+    /* Ensure image behaves as a block element */
+    border-radius: 8px;
+    /* Optional: Add border radius for rounded corners */
+}
+
+
+.stock-item button {
+    background: var(--warning-gradient);
+    border: 0;
+    border-radius: 14px;
+    bottom: .75rem;
+    color: #fff;
+    font-size: var(--font-size-md);
+    font-weight: bolder;
+    padding: .5rem 1rem;
+    position: absolute;
+    right: .5rem;
+    --warning-gradient: linear-gradient(160deg, #ffcd73, #ffa02a);
+}

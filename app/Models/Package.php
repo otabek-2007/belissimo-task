@@ -9,7 +9,7 @@ class Package extends Model
 {
     protected $fillable = [
         'product_id',
-        'category_id',
+        'quantity',
         'price',
         'name_uz',
         'name_ru',

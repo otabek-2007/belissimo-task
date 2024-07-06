@@ -13,7 +13,15 @@
     @include('layouts.header')
 
     <div id="filtered-products">
-        @include('products.filtered-products', ['products' => $products])
+        @if (request()->has('category_id') && !empty($products))
+            @include('products.filtered-products', ['products' => $products])
+        @endif
+    </div>
+
+    <div id="stock-products">
+        @if (request()->has('in_stock') && !empty($products))
+            @include('products.stock-products', ['products' => $products])
+        @endif
     </div>
 </body>
 

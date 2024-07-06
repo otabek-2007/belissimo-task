@@ -6,7 +6,8 @@
 
 body {
     font-family: Averta CY, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif !important;
-    height: 100vh;
+    /* height: 100vh; */
+    overflow-y: scroll;
     margin: 0;
 }
 
@@ -14,10 +15,9 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    padding: 0.5rem 1rem;
+    justify-content: flex-start;
+    min-height: 90vh;
+    padding: 1rem 0.5rem;
     position: relative;
 }
 
@@ -30,6 +30,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 150px;
     justify-content: center;
     height: 100%;
     width: 100%;
@@ -45,6 +46,322 @@ body {
     position: absolute;
     top: 0.5rem;
     padding: 1rem;
+    left: 0.5rem;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.show-package-items {
+    width: 100%;
+    flex: 1;
+    margin-bottom: 20px;
+}
+
+.item {
+    display: flex;
+    flex-direction: column;
+}
+
+.package-item {
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.package-item-img {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+.package-item-img img {
+    width: 100px;
+}
+
+.package-text {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.counter {
+    background: #efefef;
+    padding: 7px 10px;
+    margin-bottom: 10px;
+}
+
+.line {
+    width: 100%;
+    height: 1px;
+    margin-top: 10px;
+    background-color: #efefef;
+}
+
+.promocode {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.promocode p {
+    color: #b5b5b5;
+    display: inline-block;
+    margin-bottom: .5rem;
+}
+
+.inputs {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.promo-inp {
+    background-color: #efefef;
+    border-radius: 11px;
+    color: var(--tg-theme-text-color);
+    --tg-theme-text-color: #080808;
+    font-size: 16px;
+    font-weight: bolder;
+    border: 0px;
+    height: 44px;
+    outline: none;
+    line-height: 19px;
+    padding: .5rem;
+    text-align: center;
+    text-transform: uppercase;
+    width: 100%;
+}
+
+.support-btn {
+    background: #262a2c;
+    border: 0;
+    border-radius: 40px;
+    color: #fff;
+    font-size: var(--font-size-lg);
+    font-weight: bolder;
+    padding: .75rem 1rem;
+    width: 100%;
+}
+
+.error-alert {
+    display: none;
+    margin-top: 20px;
+    border-radius: 14px;
+    background-color: #ffe8c6;
+    padding: 1rem;
+}
+
+.error-alert.active {
+    display: flex;
+}
+
+.error-alert p {
+    color: black;
+}
+
+.footer {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    box-shadow: 5px 2px 10px hsla(0, 0%, 87%, .88);
+    background-color: #fff;
+}
+
+.yetkazib-berish {
+    display: flex;
+    gap: 15px;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    flex-direction: column;
+}
+
+.total-amount {
+    font-size: 21px;
+    font-weight: 800;
+    line-height: 19px;
+}
+
+.sum-all p {
+    font-size: 19px;
+    font-weight: 600;
+    line-height: 23px;
+
+}
+
+.total-price {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 23px;
+}
+
+.yetkazish,
+.sum-all {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.pay-btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background: linear-gradient(160deg, #1ad86b, #10b260);
+    border: 0;
+    border-radius: 40px;
+    color: #fff;
+    font-size: var(--font-size-lg);
+    font-weight: bolder;
+    padding: .75rem 1rem;
+    width: 100%;
+}
+
+.pay-box {
+    bottom: 0px;
+    background: #fff;
+    padding: 1rem .5rem;
+}
+
+.calculate-counter .counter {
+    border-radius: 10px;
+    gap: 17px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.calculate-counter .counter i {
+    cursor: pointer;
+}
+
+.bottom-section {
+    width: 100%;
+}
+
+
+.title {
+    font-size: 25px;
+    margin-bottom: 1rem;
+}
+
+.show-package-items {
+    width: 100%;
+    flex: 1;
+    margin-bottom: 20px;
+}
+
+.promocode {
+    width: 100%;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.bottom-section {
+    width: 100%;
+    margin-top: auto;
+}
+
+.footer {
+    width: 100%;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+.yetkazib-berish {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    flex-direction: column;
+}
+
+.total-amount {
+    font-size: 21px;
+    font-weight: 800;
+    line-height: 19px;
+}
+
+.sum-all p {
+    font-size: 19px;
+    font-weight: 600;
+    line-height: 23px;
+}
+
+.total-price {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 23px;
+}
+
+.pay-btn {
+    background: linear-gradient(160deg, #1ad86b, #10b260);
+    border: 0;
+    border-radius: 40px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 0.75rem 1rem;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+}
+
+.support-btn {
+    background: #262a2c;
+    border: 0;
+    border-radius: 40px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 0.75rem 1rem;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+}
+
+.error-alert {
+    display: none;
+    margin-top: 20px;
+    border-radius: 14px;
+    background-color: #ffe8c6;
+    padding: 1rem;
+}
+
+.error-alert.active {
+    display: flex;
+}
+
+.error-alert p {
+    color: black;
+}
+
+.calculate-counter .counter {
+    background: #efefef;
+    padding: 7px 10px;
+    margin-bottom: 7px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.calculate-counter .counter i {
+    cursor: pointer;
+}
+
+.empty-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.left-back {
+    position: absolute;
+    top: 0.5rem;
     left: 0.5rem;
     font-size: 24px;
     cursor: pointer;

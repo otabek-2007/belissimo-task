@@ -16,7 +16,7 @@
     <div class="header-container">
         <div class="header-cards">
             @foreach ($categories as $category)
-                <div class="card" data-id="{{ $category->id }}">
+                <div class="card{{ $category->id === 1 ? ' active' : '' }}" data-id="{{ $category->id }}">
                     <span>🍕</span>
                     <p>{{ $category->name_uz }}</p>
                 </div>
@@ -46,6 +46,9 @@
             $('.card').click(function() {
                 var categoryId = $(this).data('id');
 
+                $('.card').removeClass('active');
+                $(this).addClass('active');
+
                 $.ajax({
                     url: '/index',
                     method: 'GET',
@@ -57,8 +60,8 @@
                         window.history.pushState({
                             path: newUrl
                         }, '', newUrl);
-
-                        $('#filtered-products').html(response);
+                        $('#filtered-products').html(response.html);
+                        $('#stock-products').html('');
                     },
                     error: function(xhr, status, error) {
                         console.error(error);
@@ -67,14 +70,35 @@
             });
 
             $('.menu-card').click(function() {
-                window.location.href = '/aksiyalar';
-            });
+                $('.card').removeClass('active');
+                $('.menu-card').addClass('active');
 
+                $.ajax({
+                    url: '/index',
+                    method: 'GET',
+                    data: {
+                        in_stock: true
+                    },
+                    success: function(response) {
+                        var newUrl = '/index?in_stock=true';
+                        window.history.pushState({
+                            path: newUrl
+                        }, '', newUrl);
+                        $('#stock-products').html(response.html);
+                        $('#filtered-products').html('');
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            });
             $('.menu-card-package').click(function() {
                 window.location.href = '/package/page';
             });
         });
     </script>
+
+
 </body>
 
 </html>

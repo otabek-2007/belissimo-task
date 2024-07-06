@@ -12,4 +12,10 @@ class PackageController extends Controller
         $package = (new PackageService)->showPackage();
         return view('products.package', compact('package'));
     }
+
+    public function addPackage(Request $request)
+    {
+        $package = (new PackageService)->addPackage($request);
+        return response()->json($package);
+    }
 }

@@ -19,11 +19,9 @@
         </div>
     @endif
 @endforeach
-
-{{-- Display products with category_id != 0 --}}
 <div class="show-content-card-filtered">
     @foreach ($products as $product)
-        @if ($product->category_id != 0)
+        @if ($product->category_id != 1)
             <div class="show-card">
                 <div class="card-img">
                     <img src="./image/image.png" alt="">
@@ -85,10 +83,13 @@
                     product_id: productId
                 },
                 success: function(response) {
-                    $('#modal-product-image').attr('src', response.image);
-                    $('#modal-product-title').text(response.name);
-                    $('#modal-product-description').text(response.description);
-                    $('#modal-product-price').text(response.price + ' so’m');
+                    $('#modal-product-image').attr('src', (response.image) ? (response
+                        .image) : "/image/image.png");
+                    $('#modal-product-title').text(response.name_uz);
+                    $('#modal-product-description').text(response.description_uz);
+                    $('#modal-product-price').text((response.price_small ? response
+                        .price_small : (response.price_medium ? response
+                            .price_medium : response.price_big)) + ' so’m');
                     $('#qoshish-btn').data('id', productId);
 
                     $('body').addClass('modal-open');
