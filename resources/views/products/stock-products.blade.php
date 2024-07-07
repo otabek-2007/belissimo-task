@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="{{ asset('/css/stock-products.css') }}">
 
 <div class="stock-container">
+    {{-- {{$products}} --}}
     @foreach ($products as $product)
         <div class="stock-item" data-id="{{ $product->id }}">
             <img src="{{ asset('image/' . ($product->image ? $product->image : 'pizza.jpg')) }}"

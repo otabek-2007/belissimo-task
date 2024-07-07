@@ -1,6 +1,8 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\Bonus;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Services\ProductService;
 
@@ -31,11 +33,35 @@ class ProductController extends Controller
     }
 
 
-    public function showStockProduct($id)
+    public function showStockProduct($id, Request $request)
     {
-        $bonus = $this->productService->stockProduct($id);
+        $bonus = Bonus::with('bonusItems')->find($id);
+
+        if (!$bonus) {
+            abort(404);
+        }
+
+        $product = null;
+        $positionId = $request->input('position_id');
+
+        if ($positionId) {
+            $product = Product::where('position_id', $positionId)->first();
+        }
+
+        if ($request->ajax() && $product) {
+            return response()->json([
+                'name_uz' => $product->name_uz,
+                'description_uz' => $product->description_uz,
+                'price_small' => $product->price_small,
+                'price_medium' => $product->price_medium,
+                'price_big' => $product->price_big,
+                'image' => $product->image,
+            ]);
+        }
+
         return view('products.stock-show', compact('bonus'));
     }
+
 
 
     public function showProduct(Request $request)

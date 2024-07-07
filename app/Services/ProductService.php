@@ -27,8 +27,7 @@ class ProductService
         return $products->get();
     }
 
-    // ProductService.php
-    public function stockProduct($id)
+    public function stockProduct($id, $positionId = null)
     {
         $bonus = Bonus::with('bonusItems')->find($id);
 
@@ -36,8 +35,14 @@ class ProductService
             abort(404);
         }
 
-        return $bonus;
+        $products = null;
+        if ($positionId) {
+            $products = Product::where('position_id', $positionId)->get();
+        }
+
+        return compact('bonus', 'products');
     }
+
 
 
     public function showProduct($request)

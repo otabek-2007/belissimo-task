@@ -250,14 +250,28 @@ li a {
     cursor: pointer;
 }
 
-body.modal-open {
-    background-color: lightgray;
-    overflow: hidden;
+.m {
+    display: none;
+    backdrop-filter: blur(2px);
+    background: rgba(0, 0, 0, .1);
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+    overflow: auto;
+    /* Ensure modal content can scroll if needed */
 }
 
+.m.active {
+    display: flex;
+    /* Show the modal when active */
+    align-items: center;
+    justify-content: center;
+}
 .modal {
     display: none;
-    position: fixed;
     left: 0;
     right: 0;
     bottom: -100%;
@@ -268,13 +282,21 @@ body.modal-open {
     z-index: 1000;
 }
 
-.modal-open .modal {
+.m .modal {
     display: block;
 }
-
+body.active{
+    overflow-y: hidden;
+}
 .modal-content {
-    position: relative;
-    padding: 20px;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px 10px;
+    border-radius: 28px 28px 0px 0px;
+    max-width: 90%;
+    max-height: 90%;
+    overflow-y: auto;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .drag-line {
@@ -373,4 +395,3 @@ body.modal-open {
     padding: .75rem 1rem;
     width: 70%;
 }
-

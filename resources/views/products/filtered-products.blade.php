@@ -3,8 +3,7 @@
         <div class="show-content">
             <div class="show-item-pizza">
                 <div class="show-item-img">
-                    <img src="{{ $product->image ? '/image/' . $product->image : '/image/default.jpg' }}"
-                    alt="">
+                    <img src="{{ $product->image ? '/image/' . $product->image : '/image/default.jpg' }}" alt="">
                 </div>
                 <div class="show-item-text">
                     <p class="show-item-title">{{ $product->name_uz }}</p>
@@ -25,7 +24,8 @@
         @if ($product->category_id != 1)
             <div class="show-card">
                 <div class="card-img">
-                    <img src="{{ $product->image ? '/image/' . $product->image : '/image/default.jpg' }}" alt="">
+                    <img src="{{ $product->image ? '/image/' . $product->image : '/image/default.jpg' }}"
+                        alt="">
 
                 </div>
                 <p class="card-title">{{ $product->name_uz }}</p>
@@ -47,25 +47,29 @@
 </div>
 
 {{-- Modal Structure --}}
-<div id="product-modal" class="modal">
-    <div class="modal-content">
-        <div class="drag-line"></div>
-        <div id="pizza_more">
-            <div class="ProductMore_imageContainer">
-                <img src="" alt="" class="ProductMore_image" id="modal-product-image">
-            </div>
-            <div class="ProductMore_details">
-                <h2 class="ProductMore_title" id="modal-product-title"></h2>
-                <p class="ProductMore_description" id="modal-product-description"></p>
-            </div>
-            <div class="ProductMore_actions ProductMore_buttonActions">
-                <div class="ProductMore_priceAndAction">
-                    <div class="ProductMore_price" id="modal-product-price"></div>
-                    <button class="ProductMore_action" id="qoshish-btn">Qo'shish</button>
+<div class="m">
+
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <div class="drag-line"></div>
+            <div id="pizza_more">
+                <div class="ProductMore_imageContainer">
+                    <img src="" alt="" class="ProductMore_image" id="modal-product-image">
+                </div>
+                <div class="ProductMore_details">
+                    <h2 class="ProductMore_title" id="modal-product-title"></h2>
+                    <p class="ProductMore_description" id="modal-product-description"></p>
+                </div>
+                <div class="ProductMore_actions ProductMore_buttonActions">
+                    <div class="ProductMore_priceAndAction">
+                        <div class="ProductMore_price" id="modal-product-price"></div>
+                        <button class="ProductMore_action" id="qoshish-btn">Qo'shish</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
 </div>
 
 <script>
@@ -85,8 +89,8 @@
                     product_id: productId
                 },
                 success: function(response) {
-                    $('#modal-product-image').attr('src', (response.image) ? (response
-                        .image) : "/image/image.png");
+                    $('#modal-product-image').attr('src', response.image ? '/image/' +
+                        response.image : '/image/default.jpg');
                     $('#modal-product-title').text(response.name_uz);
                     $('#modal-product-description').text(response.description_uz);
                     $('#modal-product-price').text((response.price_small ? response
@@ -94,7 +98,8 @@
                             .price_medium : response.price_big)) + ' so’m');
                     $('#qoshish-btn').data('id', productId);
 
-                    $('body').addClass('modal-open');
+                    $('.m').addClass('active'); // Show the modal
+                    $('body').addClass('active'); // Show the modal
                     modal.css('bottom', '0');
                 },
                 error: function(xhr, status, error) {
@@ -128,13 +133,15 @@
                     closeModal();
                 },
                 error: function(xhr, status, error) {
+                    console.error('Error adding product:', error);
                     closeModal();
                 }
             });
         });
 
         function closeModal() {
-            $('body').removeClass('modal-open');
+            $('.m').removeClass('active'); // Hide the modal
+            $('body').removeClass('active'); // Hide the modal
             modal.css('bottom', '-100%');
         }
 

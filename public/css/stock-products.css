@@ -14,18 +14,13 @@
 .stock-item {
     position: relative;
     width: 50%;
-    /* Adjust width as needed */
     padding: 0.5rem;
-    /* Add padding for spacing between items */
 }
 
 .stock-item img {
     width: 100%;
-    /* Ensure the image takes full width of its container */
     display: block;
-    /* Ensure image behaves as a block element */
     border-radius: 8px;
-    /* Optional: Add border radius for rounded corners */
 }
 
 
