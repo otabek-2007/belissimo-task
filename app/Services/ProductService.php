@@ -21,7 +21,8 @@ class ProductService
         if ($request->has('category_id')) {
             $products->where('category_id', $request->category_id);
         } else {
-            $products->where('category_id', 1);
+            $category_id = 1;
+            $products->where('category_id', $category_id);
         }
 
         return $products->get();

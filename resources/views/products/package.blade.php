@@ -16,7 +16,7 @@
     <div class="container">
         <p class="title">Savat</p>
 
-        @if (count($package) === 0)
+        @if ($packages->isEmpty() && $halfPackages->isEmpty())
             <div class="empty-box">
                 <i class="fa-solid fa-chevron-left left-back"></i>
                 <img src="https://intermenu.bellissimo.uz/static/media/empty-cart.d0b60c2da0f4ea5c6e8614d769021c8e.svg"
@@ -26,7 +26,7 @@
         @else
             <i class="fa-solid fa-chevron-left left-back"></i>
             <div class="show-package-items">
-                @foreach ($package as $item)
+                @foreach ($packages as $item)
                     <div class="item">
                         <div class="package-item">
                             <div class="package-item-img">
@@ -54,6 +54,35 @@
                         <div class="line"></div>
                     </div>
                 @endforeach
+                @foreach ($halfPackages as $item)
+                    <div class="item">
+                        <div class="package-item">
+                            <div class="package-item-img">
+                                <img src="{{ $item->image ? '/image/' . $item->image : '/image/default.jpg' }}"
+                                    alt="">
+
+                                <div class="package-text">
+                                    <p>50 ga 50 pitsa</p>
+                                    <span>{{ $item->name_uz_one }} + {{ $item->name_uz_two }}</span>
+                                </div>
+                            </div>
+                            <div class="calculate-counter">
+                                <div class="counter">
+                                    <i class="fa-solid fa-minus minus-btn-half" data-id="{{ $item->id }}"
+                                        data-price="{{ $item->price }}"></i>
+                                    <span class="quantity">{{ $item->quantity }}</span>
+                                    <i class="fa-solid fa-plus plus-btn-half" data-id="{{ $item->id }}"
+                                        data-price="{{ $item->price }}"></i>
+                                </div>
+                                <div class="sum-item">
+                                    <span class="total-price">{{ $item->price * $item->quantity }} so’m</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line"></div>
+                    </div>
+                @endforeach
+
                 <div class="promocode">
                     <p>Promo kod</p>
                     <div class="inputs">
@@ -102,8 +131,8 @@
             });
 
             $('.plus-btn').click(function() {
-                var productId = $(this).data('id');
-                var productPrice = parseFloat($(this).data('price'));
+                var itemId = $(this).data('id'); // Use 'id' for PackageHalf items
+                var itemPrice = parseFloat($(this).data('price'));
                 var quantityElement = $(this).siblings('.quantity');
                 var currentQuantity = parseInt(quantityElement.text());
 
@@ -111,15 +140,15 @@
                     url: '/add/product',
                     method: 'POST',
                     data: {
-                        product_id: productId,
+                        product_id: itemId, // Adjust for Package items
                         quantity: currentQuantity + 1,
                         _token: '{{ csrf_token() }}'
                     },
                     success: function(response) {
                         quantityElement.text(currentQuantity + 1);
-                        var newTotalPrice = productPrice * (currentQuantity + 1);
+                        var newTotalPrice = itemPrice * (currentQuantity + 1);
                         quantityElement.closest('.calculate-counter').find('.total-price').text(
-                            newTotalPrice);
+                            newTotalPrice + ' so’m');
                         updateTotalAmount();
                     },
                     error: function(xhr, status, error) {
@@ -129,8 +158,8 @@
             });
 
             $('.minus-btn').click(function() {
-                var productId = $(this).data('id');
-                var productPrice = parseFloat($(this).data('price'));
+                var itemId = $(this).data('id'); // Use 'id' for PackageHalf items
+                var itemPrice = parseFloat($(this).data('price'));
                 var quantityElement = $(this).siblings('.quantity');
                 var currentQuantity = parseInt(quantityElement.text());
 
@@ -141,19 +170,79 @@
                         url: '/add/product',
                         method: 'POST',
                         data: {
-                            product_id: productId,
+                            product_id: itemId, // Adjust for Package items
                             quantity: newQuantity,
                             _token: '{{ csrf_token() }}'
                         },
                         success: function(response) {
                             if (newQuantity === 0) {
-                                console.log(response);
                                 quantityElement.closest('.item').remove();
                             } else {
                                 quantityElement.text(newQuantity);
-                                var newTotalPrice = productPrice * newQuantity;
+                                var newTotalPrice = itemPrice * newQuantity;
                                 quantityElement.closest('.calculate-counter').find(
-                                    '.total-price').text(newTotalPrice);
+                                    '.total-price').text(newTotalPrice + ' so’m');
+                            }
+                            updateTotalAmount();
+                        },
+                        error: function(xhr, status, error) {
+                            console.log(error);
+                        }
+                    });
+                }
+            });
+            $('.plus-btn-half').click(function() {
+                var itemId = $(this).data('id'); // Use 'id' for PackageHalf items
+                var itemPrice = parseFloat($(this).data('price'));
+                var quantityElement = $(this).siblings('.quantity');
+                var currentQuantity = parseInt(quantityElement.text());
+
+                $.ajax({
+                    url: '/half/save',
+                    method: 'POST',
+                    data: {
+                        product_id: itemId, // Adjust for Package items
+                        quantity: currentQuantity + 1,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        quantityElement.text(currentQuantity + 1);
+                        var newTotalPrice = itemPrice * (currentQuantity + 1);
+                        quantityElement.closest('.calculate-counter').find('.total-price').text(
+                            newTotalPrice + ' so’m');
+                        updateTotalAmount();
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(error);
+                    }
+                });
+            });
+
+            $('.minus-btn-half').click(function() {
+                var itemId = $(this).data('id'); // Use 'id' for PackageHalf items
+                var itemPrice = parseFloat($(this).data('price'));
+                var quantityElement = $(this).siblings('.quantity');
+                var currentQuantity = parseInt(quantityElement.text());
+
+                if (currentQuantity > 0) {
+                    var newQuantity = currentQuantity - 1;
+
+                    $.ajax({
+                        url: '/half/save',
+                        method: 'POST',
+                        data: {
+                            product_id: itemId, // Adjust for Package items
+                            quantity: newQuantity,
+                            _token: '{{ csrf_token() }}'
+                        },
+                        success: function(response) {
+                            if (newQuantity === 0) {
+                                quantityElement.closest('.item').remove();
+                            } else {
+                                quantityElement.text(newQuantity);
+                                var newTotalPrice = itemPrice * newQuantity;
+                                quantityElement.closest('.calculate-counter').find(
+                                    '.total-price').text(newTotalPrice + ' so’m');
                             }
                             updateTotalAmount();
                         },

@@ -8,6 +8,9 @@ body {
     font-family: Averta CY, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif !important;
 }
 
+body.active {
+    overflow: hidden;
+}
 
 .container {
     display: flex;
@@ -226,6 +229,10 @@ body {
     width: 100%;
     text-align: center;
     cursor: pointer;
+}
+#modal-product-title{
+    font-size: 14px;
+    text-align: center;
 }
 
 .error-alert {
@@ -458,4 +465,177 @@ body {
     font-size: 18px;
     font-weight: 600;
     line-height: 19px;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    width: 60%;
+}
+
+.modal-card-content {
+    position: relative;
+    background: var(--tg-theme-bg-color);
+    box-shadow: 5px 2px 30px hsla(257, 8%, 83%, .25);
+    border: 2px solid transparent;
+    border-radius: 14px;
+    padding: 1rem;
+    position: relative;
+}
+
+.add-btn-box {
+    padding: 0.5rem;
+}
+
+#qoshish-btn {
+    border: 0;
+    border-radius: 40px;
+    color: #fff;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: bolder;
+    padding: 0.75rem 0rem;
+    width: 100%;
+}
+
+#qoshish-btn.active {
+    background-color: #262a2c;
+}
+
+#modal-product-image {
+    width: 100%;
+}
+
+.modal-header-content {
+    width: 100%;
+    display: flex;
+    justify-content: right;
+}
+
+.modal-card-content.active {
+    border: 2px solid red;
+}
+
+.modal-body-content {
+    /* display: flex; */
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    padding: 0.5rem;
+}
+
+.check-icon {
+    align-items: center;
+    background: var(--danger-gradient);
+    border-radius: 50%;
+    color: #fff;
+    display: none;
+    height: 28px;
+    justify-content: center;
+    position: absolute;
+    right: -8px;
+    top: -8px;
+    width: 28px;
+    z-index: 2;
+    --danger-gradient: linear-gradient(160deg, #fb5a5a, #fb425a);
+}
+
+.modal-card-content.active .check-icon {
+    display: flex;
+}
+
+.modal {
+    display: none;
+    backdrop-filter: blur(2px);
+    background: rgba(0, 0, 0, 0.1);
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+    overflow: auto;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    max-height: 100vh;
+    overflow-y: auto;
+    width: 50%;
+    max-width: 600px;
+    border-radius: 12px;
+    position: relative;
+}
+
+.modal-header-content {
+    position: sticky;
+    top: 0;
+    background-color: #fefefe;
+    z-index: 1;
+}
+
+.modal-header-content {
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    z-index: 1;
+    padding: 10px;
+    /* Adjust padding as needed */
+}
+
+
+.modal-body-content {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    padding: 0.5rem;
+}
+
+.check-icon {
+    align-items: center;
+    background: var(--danger-gradient);
+    border-radius: 50%;
+    color: #fff;
+    display: none;
+    height: 28px;
+    justify-content: center;
+    position: absolute;
+    right: -8px;
+    top: -8px;
+    width: 28px;
+    z-index: 2;
+    --danger-gradient: linear-gradient(160deg, #fb5a5a, #fb425a);
+}
+
+.modal-card-content.active .check-icon {
+    display: flex;
+}
+
+.modal-header-content {
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    z-index: 1;
+    padding: 10px;
+    /* Adjust padding as needed */
+}
+
+.close {
+    float: right;
+    background-color: transparent;
+    border: none;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+
+@media (max-width: 768px) {
+    .modal-content {
+        width: 90%;
+    }
 }

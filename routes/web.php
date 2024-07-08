@@ -15,3 +15,4 @@ Route::get('/products/construktor', [ProductController::class, 'construktor']);
 Route::get('/product/bonuses/{id}', [ProductController::class, 'showStockProduct']);
 Route::get('/package/page', [PackageController::class, 'packagePage']);
 Route::post('/add/product', [PackageController::class, 'addPackage']);
+Route::post('/half/save', [PackageController::class, 'halfSave']);

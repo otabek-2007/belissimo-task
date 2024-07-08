@@ -7,15 +7,23 @@ use Illuminate\Http\Request;
 
 class PackageController extends Controller
 {
+
     public function packagePage()
     {
-        $package = (new PackageService)->showPackage();
-        return view('products.package', compact('package'));
+        $packageService = new PackageService();
+        $packageData = $packageService->showPackage();
+    
+        return view('products.package', $packageData);
     }
 
     public function addPackage(Request $request)
     {
         $package = (new PackageService)->addPackage($request);
+        return response()->json($package);
+    }
+    public function halfSave(Request $request)
+    {
+        $package = (new PackageService)->halfStore($request);
         return response()->json($package);
     }
 }

@@ -2,6 +2,7 @@
 namespace App\Services;
 
 use App\Models\Package;
+use App\Models\PackageHalf;
 use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 
@@ -9,8 +10,15 @@ class PackageService
 {
     public function showPackage()
     {
-        return Package::all();
+        $packages = Package::all();
+        $halfPackages = PackageHalf::all();
+
+        return [
+            'packages' => $packages,
+            'halfPackages' => $halfPackages
+        ];
     }
+
     public function addPackage($request)
     {
         return DB::transaction(function () use ($request) {
@@ -49,6 +57,53 @@ class PackageService
             return $package;
         });
     }
+    public function halfStore($request)
+    {
+        return DB::transaction(function () use ($request) {
+            $productId = $request->product_id;
+            $quantity = $request->quantity ?? 1;
+
+            $packageHalf = PackageHalf::find($productId);
+
+            if ($packageHalf) {
+                if ($quantity == 0) {
+                    $packageHalf->delete();
+                } else {
+                    $packageHalf->quantity = $quantity;
+                    $packageHalf->save();
+                }
+            } else {
+                $existingPackageHalf = PackageHalf::where('left_product_id', $request->left_product_id)
+                    ->where('right_product_id', $request->right_product_id)
+                    ->first();
+
+                if ($existingPackageHalf) {
+                    $existingPackageHalf->quantity += 1;
+                    $existingPackageHalf->save();
+                    $packageHalf = $existingPackageHalf;
+                } else {
+                    $leftProduct = Product::findOrFail($request->left_product_id);
+                    $rightProduct = Product::findOrFail($request->right_product_id);
+
+                    $leftPrice = $leftProduct->price_small == 0 ? ($leftProduct->price_medium == 0 ? $leftProduct->price_big : $leftProduct->price_medium) : $leftProduct->price_small;
+                    $rightPrice = $rightProduct->price_small == 0 ? ($rightProduct->price_medium == 0 ? $rightProduct->price_big : $rightProduct->price_medium) : $rightProduct->price_small;
+
+                    $packageHalf = PackageHalf::create([
+                        'left_product_id' => $leftProduct->id,
+                        'right_product_id' => $rightProduct->id,
+                        'name_uz_one' => $leftProduct->name_uz,
+                        'name_uz_two' => $rightProduct->name_uz,
+                        'quantity' => $quantity,
+                        'price' => $leftPrice + $rightPrice,
+                    ]);
+                }
+            }
+
+            return $packageHalf;
+        });
+    }
+
+
 
 
 }

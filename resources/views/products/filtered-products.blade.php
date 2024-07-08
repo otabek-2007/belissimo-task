@@ -166,12 +166,10 @@
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {
-                    console.log(response);
                     showAlertMessage(productName);
                     closeModal();
                 },
                 error: function(xhr, status, error) {
-                    console.error('Error adding product:', error);
                     closeModal();
                 }
             });

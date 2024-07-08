@@ -10,6 +10,9 @@
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Document</title>
+    <style>
+
+    </style>
 </head>
 
 <body>
@@ -27,7 +30,7 @@
         <div class="select-pizza">
             <div class="choose-box">
                 <p>Chap yarmi</p>
-                <div class="choose-pizza first-box">
+                <div class="choose-pizza first-box" data-box="left">
                     <p>de</p>
                     <svg width="10" height="6" viewBox="0 0 10 6" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
@@ -39,7 +42,7 @@
             </div>
             <div class="choose-box">
                 <p>O'ng yarmi</p>
-                <div class="choose-pizza second-box">
+                <div class="choose-pizza second-box" data-box="right">
                     <p>de</p>
                     <svg width="10" height="6" viewBox="0 0 10 6" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
@@ -88,7 +91,8 @@
                 </div>
                 <div class="modal-body-content">
                     @foreach ($halfPizzas as $pizza)
-                        <div class="modal-card-content">
+                        <div class="modal-card-content" data-id="{{ $pizza->id }}" data-name="{{ $pizza->name_uz }}"
+                            data-image="/image/pizz-modal.jpg">
                             <img id="modal-product-image" src="/image/pizz-modal.jpg" alt="Product Image">
                             <h2 id="modal-product-title">{{ $pizza->name_uz }}</h2>
                             <div class="check-icon">
@@ -102,51 +106,99 @@
                             </div>
                         </div>
                     @endforeach
-                    <div class="qoshish-add">qoshish</div>
+                </div>
+                <div class="add-btn-box">
+                    <button id="qoshish-btn" data-id="">Qo'shish</button>
                 </div>
             </div>
         </div>
-    </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
         $(document).ready(function() {
-            $(".select-size-three div").click(function() {
-                $(".select-size-three div").removeClass('active');
-                $(this).addClass('active');
+            var selectedLeftProduct = null;
+            var selectedRightProduct = null;
+
+            function openModal(box) {
+                $('#modal').show();
+                $('.m').addClass('active');
+                $('body').addClass('active');
+                $('#modal').data('box', box);
+            }
+
+            function closeModal() {
+                $('#modal').hide();
+                $('.m').removeClass('active');
+                $('body').removeClass('active');
+            }
+
+            $('.first-box, .second-box').click(function() {
+                var box = $(this).data('box');
+                openModal(box);
+                $('body').addClass('active');
             });
+
+            $('.modal-card-content').click(function() {
+                $('.modal-card-content').removeClass('active');
+                $(this).addClass('active');
+                $('#qoshish-btn').addClass('active'); // Activate qoshish-btn
+            });
+
+            $('.close').click(function() {
+                closeModal();
+            });
+
+            $(window).click(function(event) {
+                if (event.target == $('#modal')[0]) { // Check if clicked outside modal
+                    closeModal();
+                }
+            });
+
+            $('#qoshish-btn').click(function() {
+                var selectedProduct = $('.modal-card-content.active');
+                var productId = selectedProduct.data('id');
+                var productName = selectedProduct.data('name');
+                var productImage = selectedProduct.data('image');
+                var box = $('#modal').data('box');
+
+                if (box === 'left') {
+                    selectedLeftProduct = productId;
+                    $('.first-box p').text(productName);
+                    $('.show-pizza-img-left img').attr('src', productImage);
+                } else if (box === 'right') {
+                    selectedRightProduct = productId;
+                    $('.second-box p').text(productName);
+                    $('.show-pizza-img-right img').attr('src', productImage);
+                }
+
+                closeModal();
+            });
+
+            $('.pay-btn').click(function() {
+                $.ajax({
+                    url: '/half/save',
+                    method: 'POST',
+                    data: {
+                        left_product_id: selectedLeftProduct,
+                        right_product_id: selectedRightProduct,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        alert('Products saved successfully');
+                    },
+                    error: function() {
+                        alert('Failed to save products');
+                    }
+                });
+
+            });
+
             $('.left-back').click(function() {
                 window.location.href = '/index?category_id=1';
             });
-            $('.bonus-card').click(function() {
-                var positionId = $(this).data('id');
-                $.ajax({
-                    url: '/product/bonuses/' + bonusId,
-                    method: 'GET',
-                    data: {
-                        position_id: positionId
-                    },
-                    success: function(response) {
-                        $('#modal-product-image').attr('src', response.image ? response.image :
-                            "/image/pizz-modal.jpg");
-                        $('#modal-content-title').text('Беллисстер 1');
-                        $('#modal-product-title').text('Tovuqli');
-                        $('#qoshish-btn').data('id', positionId);
-
-                        $('#modal').show();
-                        $('.m').addClass('active');
-                        $('body').addClass('active');
-                    },
-                    error: function() {
-                        alert('Failed to fetch data.');
-                    }
-                });
-            });
         });
     </script>
-
 </body>
-
 
 </html>
