@@ -1,9 +1,36 @@
+<div class="alert-message">
+    <span class="added-icon">📥</span>
+    <span class="message-title">dwedw</span>
+    <p>savatchaga qoshildi</p>
+</div>
+@php $firstCategory1 = true; @endphp
+
 @foreach ($products as $product)
+    @if ($firstCategory1 && $product->category_id == 1)
+        <div class="show-pizza-content">
+            <div class="cons-pizza">
+                <span>👷</span>
+                <p>Konstruktor</p>
+                <div class="right-stright-yellow">
+                    <span>→</span>
+                </div>
+            </div>
+            <div class="half-pizza">
+                <span>🌓</span>
+                <p>50 ga 50</p>
+                <div class="right-stright-blue">
+                    <span>→</span>
+                </div>
+            </div>
+        </div>
+        @php $firstCategory1 = false; @endphp
+    @endif
     @if ($product->category_id == 1)
         <div class="show-content">
             <div class="show-item-pizza">
                 <div class="show-item-img">
-                    <img src="{{ $product->image ? '/image/' . $product->image : '/image/default.jpg' }}" alt="">
+                    <img src="{{ $product->image ? '/image/' . $product->image : '/image/default.jpg' }}"
+                        alt="">
                 </div>
                 <div class="show-item-text">
                     <p class="show-item-title">{{ $product->name_uz }}</p>
@@ -19,6 +46,7 @@
         </div>
     @endif
 @endforeach
+
 <div class="show-content-card-filtered">
     @foreach ($products as $product)
         @if ($product->category_id != 1)
@@ -96,7 +124,7 @@
                     $('#modal-product-price').text((response.price_small ? response
                         .price_small : (response.price_medium ? response
                             .price_medium : response.price_big)) + ' so’m');
-                    $('#qoshish-btn').data('id', productId);
+                    $('#qoshish-btn').data('id', productId).data('name', response.name_uz);
 
                     $('.m').addClass('active'); // Show the modal
                     $('body').addClass('active'); // Show the modal
@@ -112,6 +140,14 @@
             closeModal();
         });
 
+        $(".cons-pizza").click(function() {
+            window.location.href = '/products/construktor';
+        });
+
+        $(".half-pizza").click(function() {
+            window.location.href = '/show/half-pizza';
+        });
+
         $(window).click(function(event) {
             if (event.target == modal[0]) {
                 closeModal();
@@ -120,6 +156,7 @@
 
         $('#qoshish-btn').click(function() {
             var productId = $(this).data('id');
+            var productName = $(this).data('name');
 
             $.ajax({
                 url: '/add/product',
@@ -130,6 +167,7 @@
                 },
                 success: function(response) {
                     console.log(response);
+                    showAlertMessage(productName);
                     closeModal();
                 },
                 error: function(xhr, status, error) {
@@ -143,6 +181,16 @@
             $('.m').removeClass('active'); // Hide the modal
             $('body').removeClass('active'); // Hide the modal
             modal.css('bottom', '-100%');
+        }
+
+        function showAlertMessage(productName) {
+            var alertMessage = $('.alert-message');
+            alertMessage.find('.message-title').text(productName);
+            alertMessage.addClass('active');
+
+            setTimeout(function() {
+                alertMessage.removeClass('active');
+            }, 3000); // Adjust the timeout duration as needed
         }
 
         $(window).on('click', function(event) {

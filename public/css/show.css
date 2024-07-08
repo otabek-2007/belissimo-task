@@ -17,7 +17,92 @@
 
 .show-pizza-content {
     display: flex;
-    flex-direction: column;
+    width: 100%;
+    flex-direction: row;
+    padding: 0 0.5rem;
+    gap: 10px;
+}
+
+.show-pizza-content p {
+    font-size: 18px;
+}
+
+.show-pizza-content span {
+    font-size: 35px;
+}
+
+.right-stright-yellow {
+    position: absolute;
+    bottom: 0px;
+    padding: 13px;
+    border-radius: 14px 0 14px 0;
+    right: 0px;
+    background: #ffcf00;
+}
+
+.right-stright-blue span {
+    align-items: center;
+    background: var(--tg-theme-button-color);
+
+    bottom: 0;
+    color: #fff;
+    display: flex;
+    font-size: 18px;
+    font-weight: 700;
+    height: 25px;
+    justify-content: center;
+    line-height: 0;
+    position: absolute;
+    right: 0;
+    width: 25px;
+}
+
+.right-stright-yellow span {
+    align-items: center;
+    background: var(--tg-theme-button-color);
+
+    bottom: 0;
+    color: #fff;
+    display: flex;
+    font-size: 18px;
+    font-weight: 700;
+    height: 25px;
+    justify-content: center;
+    line-height: 0;
+    position: absolute;
+    right: 0;
+    width: 25px;
+}
+
+.right-stright-blue {
+    background: #00dcff;
+    position: absolute;
+    border-radius: 14px 0 14px 0;
+    bottom: 0px;
+    padding: 13px;
+    right: 0px;
+}
+
+.cons-pizza {
+    gap: 7px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    background: linear-gradient(140deg, rgba(255, 207, 0, .15), rgba(255, 207, 0, .3));
+    border-radius: 14px;
+    padding: 0.5rem 1rem;
+}
+
+.half-pizza {
+    gap: 7px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    background: linear-gradient(140deg, rgba(0, 220, 255, .15), rgba(0, 220, 255, .3));
+    border-radius: 14px;
+    padding: 0.5rem 1rem;
 }
 
 .show-pizza-content li {
@@ -36,103 +121,6 @@ li a {
     display: block;
 }
 
-.show-links {
-    gap: 10px;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.construc-pizza {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin: 1rem 0;
-}
-
-.cons-pizza {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 0.5rem 1rem;
-    position: relative;
-    border-radius: 14px;
-    background: linear-gradient(140deg, rgba(255, 207, 0, .15), rgba(255, 207, 0, .3));
-    width: 100%;
-}
-
-.cons-pizza span {
-    font-size: 35px;
-}
-
-.cons-pizza p {
-    font-size: 18px;
-    margin-left: 10px;
-}
-
-.cons-pizza .link {
-    color: white;
-    font-size: 10px;
-    background: #ffcf00;
-    position: absolute;
-    display: flex;
-    align-items: center;
-    font-weight: 800;
-    justify-content: center;
-    right: 0;
-    bottom: 0;
-    padding: 7px 8px;
-    border-bottom-right-radius: 14px;
-    border-top-left-radius: 40%;
-}
-
-.half-pizza {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin: 1rem 0;
-}
-
-.half-piz {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 0.5rem 1rem;
-    position: relative;
-    border-radius: 14px;
-    background: linear-gradient(140deg, rgba(0, 220, 255, .15), rgba(0, 220, 255, .3));
-    width: 100%;
-}
-
-.half-piz span {
-    font-size: 35px;
-
-}
-
-.half-piz p {
-    font-size: 18px;
-    margin-left: 10px;
-}
-
-.half-link {
-    color: white;
-    font-size: 10px;
-    background: #00dcff;
-    position: absolute;
-    display: flex;
-    align-items: center;
-    font-weight: 800;
-    justify-content: center;
-    right: 0;
-    bottom: 0;
-    padding: 7px 8px;
-    border-bottom-right-radius: 14px;
-    border-top-left-radius: 40%;
-}
-
 .show-item-pizza {
     display: flex;
     width: 100%;
@@ -145,8 +133,6 @@ li a {
     height: 125px;
     display: flex;
 }
-
-
 
 .show-item-img .item-img {
     border-radius: 14px;
@@ -261,15 +247,14 @@ li a {
     width: 100%;
     z-index: 10;
     overflow: auto;
-    /* Ensure modal content can scroll if needed */
 }
 
 .m.active {
     display: flex;
-    /* Show the modal when active */
     align-items: center;
     justify-content: center;
 }
+
 .modal {
     display: none;
     left: 0;
@@ -285,9 +270,11 @@ li a {
 .m .modal {
     display: block;
 }
-body.active{
+
+body.active {
     overflow-y: hidden;
 }
+
 .modal-content {
     background-color: #fefefe;
     margin: auto;
@@ -394,4 +381,35 @@ body.active{
     font-weight: bolder;
     padding: .75rem 1rem;
     width: 70%;
+}
+
+.alert-message {
+    align-items: center;
+    background: #fff;
+    border-radius: var(--border-radius);
+    box-shadow: 5px 2px 30px rgba(0, 0, 0, .11);
+    display: none;
+    transform: translateY(-100%);
+    gap: 0.5rem;
+    left: 0.5rem;
+    padding: 1rem;
+    position: fixed;
+    right: 0.5rem;
+    top: 1rem;
+    border-radius: 20px;
+    width: 100%;
+    z-index: 20;
+    transition: 0.8s all;
+}
+.alert-message.active{
+    transform: translateY(0%);
+    display: flex;
+}
+
+.added-icon {
+    font-size: 30px;
+}
+
+.message-title {
+    font-weight: bold;
 }

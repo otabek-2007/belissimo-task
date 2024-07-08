@@ -9,7 +9,9 @@ Route::get('/', function () {
 });
 
 Route::get('/index', [ProductController::class, 'index']);
-Route::get('/show/product', [ProductController::class, 'showProduct']); // Route to fetch product details
+Route::get('/show/product', [ProductController::class, 'showProduct']);
+Route::get('/show/half-pizza', [ProductController::class, 'halfPizza']);
+Route::get('/products/construktor', [ProductController::class, 'construktor']);
 Route::get('/product/bonuses/{id}', [ProductController::class, 'showStockProduct']);
 Route::get('/package/page', [PackageController::class, 'packagePage']);
 Route::post('/add/product', [PackageController::class, 'addPackage']);

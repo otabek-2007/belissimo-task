@@ -32,7 +32,16 @@ class ProductController extends Controller
         return view('index', compact('products'));
     }
 
-
+    public function construktor(Request $request)
+    {
+        $construktor = $this->productService->construktor($request);
+        return view('products.construktor', compact('construktor'));
+    }
+    public function halfPizza()
+    {
+        $halfPizzas = $this->productService->halfPizzat();
+        return view('products.50_50pizza', compact('halfPizzas'));
+    }
     public function showStockProduct($id, Request $request)
     {
         $bonus = Bonus::with('bonusItems')->find($id);
@@ -45,7 +54,7 @@ class ProductController extends Controller
         $positionId = $request->input('position_id');
 
         if ($positionId) {
-            $product = Product::where('position_id', $positionId)->first();
+            $product = Product::where('position', $positionId)->first();
         }
 
         if ($request->ajax() && $product) {

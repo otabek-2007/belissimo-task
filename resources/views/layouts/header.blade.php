@@ -33,7 +33,7 @@
             <div class="menu-card-package">
                 <div>
                     <p class="status">Savat</p>
-                    <p class="new"><span class="count">dona</span></p>
+                    <p class="new"><span class="count">{{ $package_count ? $package_count : 0 }} dona</span></p>
                 </div>
                 <span>🛒</span>
             </div>

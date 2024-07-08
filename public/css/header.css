@@ -9,7 +9,10 @@ body {
 }
 
 #filtered-products {
+    margin-top: 20px;
+    padding-top: 20px;
     margin-bottom: 20px;
+    box-shadow: 5px 2px 30px hsla(257, 8%, 83%, .3);
 }
 
 .header-container {
