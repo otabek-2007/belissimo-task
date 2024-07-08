@@ -9,13 +9,25 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>Document</title>
+    <title>50 ga 50 pitsa</title>
     <style>
+        .alert-message.active {
+            display: block;
+        }
 
+        .alert-message {
+            display: none;
+            /* Style your alert message as needed */
+        }
     </style>
 </head>
 
 <body>
+    <div class="alert-message">
+        <span class="added-icon">📥</span>
+        <span class="message-title"></span>
+        <p>savatchaga qoshildi</p>
+    </div>
     <div class="container">
         <p class="title">50 ga 50 pitsa</p>
         <i class="fa-solid fa-chevron-left left-back"></i>
@@ -31,7 +43,7 @@
             <div class="choose-box">
                 <p>Chap yarmi</p>
                 <div class="choose-pizza first-box" data-box="left">
-                    <p>de</p>
+                    <p>{{ $halfPizzas[0]->name_uz }}</p>
                     <svg width="10" height="6" viewBox="0 0 10 6" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -43,7 +55,7 @@
             <div class="choose-box">
                 <p>O'ng yarmi</p>
                 <div class="choose-pizza second-box" data-box="right">
-                    <p>de</p>
+                    <p>{{ $halfPizzas[0]->name_uz }}</p>
                     <svg width="10" height="6" viewBox="0 0 10 6" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -119,6 +131,8 @@
         $(document).ready(function() {
             var selectedLeftProduct = null;
             var selectedRightProduct = null;
+            var selectedLeftProductName = '';
+            var selectedRightProductName = '';
 
             function openModal(box) {
                 $('#modal').show();
@@ -133,10 +147,15 @@
                 $('body').removeClass('active');
             }
 
+            // Set initial values from server-side data
+            $('.first-box p').text('{{ $halfPizzas[0]->name_uz }}');
+            $('.second-box p').text('{{ $halfPizzas[0]->name_uz }}');
+            selectedLeftProductName = '{{ $halfPizzas[0]->name_uz }}';
+            selectedRightProductName = '{{ $halfPizzas[0]->name_uz }}';
+
             $('.first-box, .second-box').click(function() {
                 var box = $(this).data('box');
                 openModal(box);
-                $('body').addClass('active');
             });
 
             $('.modal-card-content').click(function() {
@@ -164,10 +183,12 @@
 
                 if (box === 'left') {
                     selectedLeftProduct = productId;
+                    selectedLeftProductName = productName;
                     $('.first-box p').text(productName);
                     $('.show-pizza-img-left img').attr('src', productImage);
                 } else if (box === 'right') {
                     selectedRightProduct = productId;
+                    selectedRightProductName = productName;
                     $('.second-box p').text(productName);
                     $('.show-pizza-img-right img').attr('src', productImage);
                 }
@@ -185,17 +206,19 @@
                         _token: '{{ csrf_token() }}'
                     },
                     success: function(response) {
-                        alert('Products saved successfully');
+                        var combinedName = selectedLeftProductName + ' + ' +
+                            selectedRightProductName;
+                        $('.message-title').text(combinedName);
+                        $('.alert-message').addClass('active');
+
+                        setTimeout(function() {
+                            $('.alert-message').removeClass('active');
+                        }, 3000);
                     },
                     error: function() {
                         alert('Failed to save products');
                     }
                 });
-
-            });
-
-            $('.left-back').click(function() {
-                window.location.href = '/index?category_id=1';
             });
         });
     </script>

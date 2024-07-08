@@ -230,7 +230,8 @@ body.active {
     text-align: center;
     cursor: pointer;
 }
-#modal-product-title{
+
+#modal-product-title {
     font-size: 14px;
     text-align: center;
 }
@@ -638,4 +639,36 @@ body.active {
     .modal-content {
         width: 90%;
     }
+}
+
+.alert-message {
+    align-items: center;
+    background: #fff;
+    border-radius: var(--border-radius);
+    box-shadow: 5px 2px 30px rgba(0, 0, 0, .11);
+    display: none;
+    transform: translateY(-100%);
+    gap: 0.5rem;
+    left: 0.5rem;
+    padding: 1rem;
+    position: fixed;
+    right: 0.5rem;
+    top: 1rem;
+    border-radius: 20px;
+    width: 100%;
+    z-index: 20;
+    transition: 0.8s all;
+}
+
+.alert-message.active {
+    transform: translateY(0%);
+    display: flex;
+}
+
+.added-icon {
+    font-size: 30px;
+}
+
+.message-title {
+    font-weight: bold;
 }

@@ -82,6 +82,8 @@ class PackageService
                     $existingPackageHalf->save();
                     $packageHalf = $existingPackageHalf;
                 } else {
+                    $request->left_product_id ? $request->left_product_id : 1;
+                    $request->left_product_id ? $request->right_product_id : 1;
                     $leftProduct = Product::findOrFail($request->left_product_id);
                     $rightProduct = Product::findOrFail($request->right_product_id);
 
