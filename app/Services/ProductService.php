@@ -32,7 +32,7 @@ class ProductService
         $halfPizza = Product::where('category_id', 1)->get();
         return $halfPizza;
     }
-    public function construktor($request)
+    public function constructor($request)
     {
         $products = Product::query();
         $products->with(['category']);
@@ -42,7 +42,7 @@ class ProductService
             $products->where('price_small', '>', 0);
             $products->addSelect('price_small as price');
         } elseif ($request->has('medium')) {
-            $products->where('price_medium', '>', 1000000000000000);
+            $products->where('price_medium', '>', 0);
             $products->addSelect('price_medium as price');
         } elseif ($request->has('big')) {
             $products->where('price_big', '>', 0);
@@ -55,6 +55,7 @@ class ProductService
         $construktor = $products->get();
         return $construktor;
     }
+
 
     public function stockProduct($id, $positionId = null)
     {

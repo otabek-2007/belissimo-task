@@ -34,9 +34,10 @@ class ProductController extends Controller
 
     public function construktor(Request $request)
     {
-        $construktor = $this->productService->construktor($request);
+        $construktor = $this->productService->constructor($request);
         return view('products.construktor', compact('construktor'));
     }
+
     public function halfPizza()
     {
         $halfPizzas = $this->productService->halfPizzat();
